@@ -8,27 +8,32 @@
 </head>
 <body>
     <script>
-        function promiseTest1(){
-            return new Promise(ok => {
-                ok('プロミス1です');
-            });
+
+
+        promiseTest(300,2)
+        .then(change1 => promiseTest(change1,3));
+
+        function promiseTest(pay, seconds){
+            return new Promise( (ok, ng) => {
+                setTimeout(() => {
+                    if(pay > 100){
+                        let change = pay - 100;
+                        console.log(`${seconds}秒、おつりは${change}です`);
+                        ok(change);
+                    }
+                    ng('お金が足りません');
+                }, seconds * 1000)
+            })
         }
 
-        console.log(promiseTest1());
+        console.log(promiseTest(80).catch( e => console.log(e) ));
 
-        const promiseTest2 = new Promise(ok => {
-            ok('プロミス2です');
-        });
-
-        console.log(promiseTest2);
-
-        function testPromise3(input){
-            return new Promise(ok => {
-                ok(`プロミス${input}です`);
-            });
-        }
-
-        console.log(testPromise3('太郎'));
+        promiseTest(180).then((change1) => {
+            console.log(change1);
+            return promiseTest(change1);
+        }).then(change2 => {
+            console.log(change2);
+        }).catch( e => console.log(e));
     </script>
 </body>
 </html>

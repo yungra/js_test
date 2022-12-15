@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function test1(){
+            return '関数1';
+        }
+
+        console.log(test1());
+
+        // 非同期
+        async function aTest1(){
+            return '非同期処理1'
+        }
+
+        console.log(aTest1().then(value => console.log(value)));
+
+        function waiting(seconds){
+            return new Promise(ok => {
+                setTimeout(() => {
+                    ok()
+                }, 1000 * seconds)
+            })
+        }
+
+        async function aTest2(){
+            console.log(1);
+            await waiting(2);
+            console.log(3);
+        }
+
+        aTest2();
+    </script>
+</body>
+</html>

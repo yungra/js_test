@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class BaseProduct{
+            echoProduct(){
+                console.log('親クラスです');
+            }
+
+            getProduct(){
+                console.log('親の関数クラスです');
+            }
+        }
+
+        class Product extends BaseProduct{
+
+            constructor(productName){
+                // this.product = productName;
+                super(); //子クラスでコンストラクタ使うなら必須 親クラスのコンストラクタを参照
+                this.product = [productName];
+            }
+
+            getProduct(){
+                console.log(this.product);
+            }
+
+            addProduct(item){
+                this.product.push(item);
+            }
+
+            static testProduct(){
+                console.log('静的メソッドです');
+            }
+        } 
+
+        Product.testProduct();
+        const product = new Product('テスト')
+        console.log(product.product);
+
+        product.getProduct();
+        product.addProduct('追加分です');
+        product.getProduct();
+        product.echoProduct();
+
+
+    </script>
+</body>
+</html>
